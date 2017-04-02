@@ -4,6 +4,8 @@
 
 ## Build Setup
 
+Install and start the [backend services](https://github.com/alessandrodeste/nodejs-playground)
+
 ``` bash
 # install dependencies
 npm install
