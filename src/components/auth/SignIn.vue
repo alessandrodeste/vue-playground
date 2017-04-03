@@ -16,7 +16,7 @@
                         v-model.lazy="userData.password" />
                 </div>
             </fieldset>
-            <div class="error" v-if="errorMessage">{{ errorMessage }}</div>
+            <div class="error" v-if="lastError">{{ lastError }}</div>
             <button class="btn btn-primary"
                 @click.prevent="submitted">Sign in</button>
         </form>
@@ -24,9 +24,10 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
 
     export default {
+        
         data () {
             return {
                 userData: {
@@ -36,19 +37,24 @@
             }
         },
         computed: {
-            errorMessage() {
-                return this.$store.getters.lastError;
-            }
+            ...mapGetters('auth', [
+                'lastError',
+                'authenticated'
+            ])
         },
         methods: {
-            ...mapActions({
+            ...mapActions('auth', {
                 signin: 'signin'
             }),
             submitted() {
-                this.signin(this.userData).then(() => {
-                    // FIXME: redirect if sing in succesful
-                    this.$router.push('');
-                });
+                this.signin(this.userData);
+            }
+        },
+        watch: {
+            authenticated: function (newval) {
+                if (newval) {
+                    this.$router.push('/');
+                }
             }
         }
     }

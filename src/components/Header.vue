@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-light">
         <router-link to="/" activeClass="active" class="navbar-brand">Vue Playground</router-link>
-        <ul class="nav navbar-nav" v-if="isAuthenticated">
+        <ul class="nav navbar-nav" v-if="authenticated">
             
             <li class="nav-item">
                 <router-link to="/users" activeClass="active" class="nav-link">Users</router-link>
@@ -14,7 +14,7 @@
             </li>
             
         </ul>
-        <ul class="nav navbar-nav" v-if="!isAuthenticated">
+        <ul class="nav navbar-nav" v-if="!authenticated">
             <li class="nav-item">
                 <router-link to="/signin" activeClass="active" class="nav-link">Sign In</router-link>
             </li>
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-    //import { mapActions } from 'vuex';
+    import { mapGetters } from 'vuex';
 
     export default {
         computed: {
-            isAuthenticated() {
-                return this.$store.getters.authenticated;
-            }
+            ...mapGetters('auth', [
+                'authenticated'
+            ])
         }
     }
 </script>

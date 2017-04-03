@@ -42,7 +42,6 @@ const actions = {
     signout: ({ commit }) => {
         localStorage.removeItem('token');
         commit('USER_SIGNOUT');
-        this.$router.push('signin');
     }
 };
 
@@ -56,6 +55,7 @@ const getters = {
 };
 
 export default {
+    namespaced: true,
     state,
     mutations,
     actions,

@@ -1,15 +1,25 @@
 <template>
     <div>
-        <h1>Sign out</h1>
+        <h1>Signing out...</h1>
     </div>
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+
     export default {
-        beforeCreate() {
-            this.$store.dispatch('signout').then(() => {
-                this.$router.push('signin');
+        mounted() {
+            this.signout().then(() => {
+                this.$router.push('/signin');
             });
+        },
+        methods: {
+            ...mapActions('auth', {
+                signout: 'signout'
+            }),
+            goout: function() {
+                
+            }
         }
     }
 </script>
