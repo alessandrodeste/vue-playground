@@ -13,8 +13,22 @@ Vue.http.options.root = 'https://nodejs-playground-ade.herokuapp.com';
 
 const router = new VueRouter({
     mode: 'history',
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        }
+        return { x: 0, y: 0 };
+    }
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.Auth && !store.state.auth.authenticated) {
+        next('/signin');
+    } else {
+        next();
+    }
+})
 
 new Vue({
     el: '#app',

@@ -16,10 +16,7 @@
         methods: {
             ...mapActions('auth', {
                 signout: 'signout'
-            }),
-            goout: function() {
-                
-            }
+            })
         }
     }
 </script>
