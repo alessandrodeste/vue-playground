@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 const state = {
     users: []
 };
@@ -9,14 +11,24 @@ const mutations = {
 };
 
 const actions = {
-    fetchUsers: ({commit}) => {
-        //commit('BUY_STOCK', order);
+    fetchAll: ({ commit }) => {
+        console.log("test");
+         Vue.http.get('api/secured/users', {headers: {'authorization': window.localStorage.getItem('token')}})
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    commit('USERS_FETCH', data);
+                }
+            })
+            .catch(response => {
+                // commit('USERS_FETCH_ERROR', response.statusText);
+            });
     },
     fetchUser: ({commit}, userId) => {
-        //commit('SET_STOCKS', stocks);
+        
     },
     newUser: ({commit}) => {
-        //commit('RND_STOCKS');
+        
     }
 };
 
