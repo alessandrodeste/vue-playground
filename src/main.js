@@ -30,6 +30,12 @@ router.beforeEach((to, from, next) => {
     }
 })
 
+// If we have a token, consider the user to be signed in
+const token = window.localStorage.getItem('token');
+if (token) {
+    store.dispatch('auth/getLoggedUser', token);
+} 
+
 new Vue({
     el: '#app',
     router,

@@ -3,9 +3,18 @@ import SignIn from './components/auth/SignIn.vue';
 import SignOut from './components/auth/SignOut.vue';
 import SignUp from './components/auth/SignUp.vue';
 
+import Users from './components/users/Users.vue';
+import UsersList from './components/users/UsersList.vue';
+import UsersDetail from './components/users/UsersDetail.vue';
+
 export const routes = [
-    { path: '/', component: Home, meta: { Auth: true } },
-    { path: '/signin', component: SignIn },
-    { path: '/signout', component: SignOut },
-    { path: '/signup', component: SignUp }
+    { name: 'home', path: '/', component: Home, meta: { Auth: true } },
+    { name: 'signin', path: '/signin', component: SignIn },
+    { name: 'signout', path: '/signout', component: SignOut },
+    { name: 'signup', path: '/signup', component: SignUp },
+    { path: '/users', component: Users, children: [
+        { name: 'users', path: '', component: UsersList, meta: { Auth: true } },
+        { name: 'usersNew', path: '/new', component: UsersDetail, meta: { Auth: true } },
+        { name: 'usersDetail', path: '/:id', component: UsersDetail, meta: { Auth: true } }
+    ] }
 ];

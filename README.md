@@ -6,6 +6,8 @@
 
 Install and start the [backend services](https://github.com/alessandrodeste/nodejs-playground)
 
+Install and start this application:
+
 ``` bash
 # install dependencies
 npm install
@@ -18,3 +20,8 @@ npm run build
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# TODO
+
+- form validation
+- field type validation
