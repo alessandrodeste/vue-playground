@@ -8,7 +8,7 @@
                 <router-link :to="{ name: 'users' }" activeClass="active" class="nav-link">Users</router-link>
             </li>
             <li class="nav-item">
-                <router-link :to="{ name: 'usersDetail', params: {id: 1} }" activeClass="active" class="nav-link">Account {{ user.username }}</router-link>
+                <router-link :to="{ name: 'users.detail', params: {id: user._id} }" activeClass="active" class="nav-link">Account {{ user.username }}</router-link>
             </li>
             <li class="nav-item">
                 <router-link :to="{ name: 'signout' }" activeClass="active" class="nav-link">Sign Out</router-link>

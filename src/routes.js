@@ -14,7 +14,6 @@ export const routes = [
     { name: 'signup', path: '/signup', component: SignUp },
     { path: '/users', component: Users, children: [
         { name: 'users', path: '', component: UsersList, meta: { Auth: true } },
-        { name: 'usersNew', path: '/new', component: UsersDetail, meta: { Auth: true } },
-        { name: 'usersDetail', path: '/:id', component: UsersDetail, meta: { Auth: true } }
+        { name: 'users.detail', path: ':id', component: UsersDetail, meta: { Auth: true } }
     ] }
 ];

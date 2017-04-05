@@ -25,3 +25,6 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 
 - form validation
 - field type validation
+- loaders
+- refactoring input field with sub component
+- refresh item in list after update/create

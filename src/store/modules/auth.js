@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import actions from './auth_actions';
+import actions from './auth.actions';
 
 const state = {
     authenticated: false,
