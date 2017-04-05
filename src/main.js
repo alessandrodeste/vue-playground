@@ -6,22 +6,18 @@ import App from './App.vue'
 import { routes } from './routes';
 import store from './store/store';
 
-Vue.use(VueRouter);
+// Init vue-resource
 Vue.use(VueResource);
-
 Vue.http.options.root = 'https://nodejs-playground-ade.herokuapp.com';
 
+// Init vue-router
+Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
-    routes,
-    scrollBehavior(to, from, savedPosition) {
-        if (savedPosition) {
-            return savedPosition;
-        }
-        return { x: 0, y: 0 };
-    }
+    routes
 });
 
+// Handling authenticated routing path
 router.beforeEach((to, from, next) => {
     if (to.meta.Auth && !store.state.auth.authenticated) {
         next('/signin');
@@ -30,12 +26,13 @@ router.beforeEach((to, from, next) => {
     }
 })
 
-// If we have a token, consider the user to be signed in
+// Check if was already logged in
 const token = window.localStorage.getItem('token');
 if (token) {
     store.dispatch('auth/getLoggedUser', token);
 } 
 
+// Entry point Vue
 new Vue({
     el: '#app',
     router,
