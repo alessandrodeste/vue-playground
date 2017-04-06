@@ -11,13 +11,13 @@
                 </div>
             </fieldset>
             <input-field 
-                :title="First Name"
-                :name="first_name"
-                :type="text"
-                :model="user.first_name"
-                :placeholder="First Name"
+                :title="'First Name'"
+                :name="'first_name'"
+                :type="'text'"
+                :placeholder="'First Name'"
                 :error="this.validationErrors.first_name"
-                ></input-field>
+                v-model="user.first_name"
+            ></input-field>
                 
             <fieldset class="form-group">
                 <label>First Name</label>

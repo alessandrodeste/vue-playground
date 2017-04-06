@@ -1,12 +1,21 @@
 <template>
     <fieldset class="form-group">
         
+        <label>{{ title }}{{ required ? '*' : '' }}</label>
         <div>
-            <input name="{{ name }}" 
-                :value="model"
-                  />
-            <div class="error" v-if="error">{{ error }}</div>
+            <input class="form-control" 
+                :placeholder="placeholder" 
+                :type="type" 
+                :name="name" 
+                :disabled="disabled === true ? true : false"
+                :value="value"
+                @input="$emit('input', result.value)"
+                />
+           $event.target.value
+                
+           <div class="error" v-if="error">{{ error }}</div>
         </div>
+        
     </fieldset>
 </template>
 
@@ -17,7 +26,7 @@
             name: { type: String },
             type: { type: String, default: 'text' },
             disabled: { type: Boolean, default: false },
-            model: String,
+            value: String,
             placeholder: String,
             error: String,
             required: { type: Boolean, default: false }
