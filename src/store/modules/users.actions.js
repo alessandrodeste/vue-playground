@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-const actions = {
+export default {
     fetchAll: ({ commit }) => {
         
          Vue.http.get('api/secured/users', 
