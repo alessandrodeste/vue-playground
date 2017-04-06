@@ -53,25 +53,23 @@
     import _ from 'lodash';
     import diff from 'object-diff';
 
-    const initialState = function() { console.log ("init");
-        return {
-            user: {
-                _id: '',
-                email: '',
-                first_name: '',
-                family_name: '',
-                password: '',
-                passwordConfirm: ''
-            },
-            beforeUser: null,
-            isNew: true,
-            validationErrors: {}
-        } 
+    const initialData =  {
+        user: {
+            _id: '',
+            email: '',
+            first_name: '',
+            family_name: '',
+            password: '',
+            passwordConfirm: ''
+        },
+        beforeUser: null,
+        isNew: true,
+        validationErrors: {}
     };
 
     export default {
         data () {
-            return initialState();
+            return initialData
         },
         computed: {
             ...mapGetters('auth', {
@@ -86,7 +84,6 @@
         },
         watch: {
             '$route.params.id'(newId, oldId) {
-                initialState();
                 this.load(newId);
             },
             selectedUser: function(val) {
