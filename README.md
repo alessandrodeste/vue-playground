@@ -2,6 +2,14 @@
 
 > A Vue.js project
 
+## What contain this project?
+
+- The project is based on vue-cli init template 'webpack-simple'
+- vuex for state management and actions
+- CRUD operation on users list
+- Login/Signup form and JWT handle
+- Basic form validation
+
 ## Build Setup
 
 Install and start the [backend services](https://github.com/alessandrodeste/nodejs-playground)
@@ -19,11 +27,9 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
 # TODO
 
-- form validation
+- go to login if unauthorized
 - field type validation
 - loaders
 - refactoring input field with sub component
