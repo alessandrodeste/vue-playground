@@ -2,55 +2,39 @@
     <div>
         <h1>User Detail</h1>
         <form>
-            <fieldset class="form-group">
-                <label>Email*</label>
-                <div>
-                    <input name="email" placeholder="Email" type="text" class="form-control" :disabled="this.isNew ? false : true"
-                        v-model="user.email" />
-                    <div class="error" v-if="this.validationErrors.email">{{ this.validationErrors.email }}</div>
-                </div>
-            </fieldset>
-            <input-field 
+            <input-field :type="'text'" :name="'email'"
+                v-model="user.email"
+                :title="'Email'"
+                :placeholder="'Email'"
+                :error="this.validationErrors.email"
+                :disabled="this.isNew ? false : true"
+            ></input-field>
+            
+            <input-field :type="'text'" :name="'first_name'"
+                v-model="user.first_name"
                 :title="'First Name'"
-                :name="'first_name'"
-                :type="'text'"
                 :placeholder="'First Name'"
                 :error="this.validationErrors.first_name"
-                v-model="user.first_name"
+            ></input-field>
+            
+            <input-field :type="'text'" :name="'family_name'"
+                v-model="user.family_name"
+                :title="'Family Name'"
+                :placeholder="'Family Name'"
+                :error="this.validationErrors.family_name"
             ></input-field>
                 
-            <fieldset class="form-group">
-                <label>First Name</label>
-                <div>
-                    <input name="first_name" placeholder="First Name" type="text" class="form-control"
-                        v-model="user.first_name" />
-                    <div class="error" v-if="this.validationErrors.first_name">{{ this.validationErrors.first_name }}</div>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Family Name</label>
-                <div>
-                    <input name="family_name" placeholder="Family Name" type="text" class="form-control"
-                        v-model="user.family_name"/>
-                    <div class="error" v-if="this.validationErrors.family_name">{{ this.validationErrors.family_name }}</div>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Password</label>
-                <div>
-                    <input name="password" type="password" class="form-control" 
-                        v-model.lazy="user.password" />
-                    <div class="error" v-if="this.validationErrors.password">{{ this.validationErrors.password }}</div>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Confirm Password</label>
-                <div>
-                    <input name="passwordConfirm" type="password" class="form-control" 
-                        v-model.lazy="user.passwordConfirm" />
-                    <div class="error" v-if="this.validationErrors.passwordConfirm">{{ this.validationErrors.passwordConfirm }}</div>
-                </div>
-            </fieldset>
+            <input-field :type="'text'" :name="'password'"
+                v-model.lazy="user.password"
+                :title="'Password'"
+                :error="this.validationErrors.password"
+            ></input-field>
+                
+            <input-field :type="'text'" :name="'passwordConfirm'"
+                v-model.lazy="user.passwordConfirm"
+                :title="'Confirm Password'"
+                :error="this.validationErrors.passwordConfirm"
+            ></input-field>
             
             <button class="btn btn-primary" @click.prevent="submitted">Save</button>
         </form>
@@ -111,7 +95,13 @@
             }),
             load(id) {
                 this.isNew = id === 'new' ? true : false;
-                this.fetch(id);
+                
+                if (!this.isNew) {
+                    this.fetch(id);
+                    // after fetch will be populated $store.auth.selectedUser
+                } else {
+                    this.$data.user = initialData.user;
+                }
             },
             _assignUserToData(user) {
                 // assign to $data only the used fields
@@ -171,6 +161,12 @@
                 }
                 
                 return isValid;
+            },
+            beforeDestroy: function() {
+  	            console.log('beforeDestroy()');
+            },
+            destroyed: function() {
+                console.log('destroyed()');
             }
         }
     }

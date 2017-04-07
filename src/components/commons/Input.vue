@@ -9,10 +9,9 @@
                 :name="name" 
                 :disabled="disabled === true ? true : false"
                 :value="value"
-                @input="$emit('input', result.value)"
+                @input="updateValue($event.target.value)"
                 />
-           $event.target.value
-                
+
            <div class="error" v-if="error">{{ error }}</div>
         </div>
         
@@ -31,6 +30,11 @@
             error: String,
             required: { type: Boolean, default: false }
             
+        },
+        methods: {
+            updateValue(val) {
+                this.$emit('input', val);
+            }
         }
     }
 </script>

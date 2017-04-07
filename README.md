@@ -30,7 +30,7 @@ npm run build
 # TODO
 
 - go to login if unauthorized
-- field type validation
 - loaders
 - refactoring input field with sub component
 - refresh item in list after update/create
+- use vue-i18n
