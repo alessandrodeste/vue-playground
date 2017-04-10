@@ -37,6 +37,7 @@
             ></input-field>
             
             <button class="btn btn-primary" @click.prevent="submitted">Save</button>
+            <router-link :to="{ name: 'users' }" activeClass="active" class="btn btn-default">Back</router-link>
         </form>
     </div>
 </template>
@@ -47,23 +48,25 @@
     import diff from 'object-diff';
     import Input from '../commons/Input.vue';
 
-    const initialData =  {
-        user: {
-            _id: '',
-            email: '',
-            first_name: '',
-            family_name: '',
-            password: '',
-            passwordConfirm: ''
-        },
-        beforeUser: null,
-        isNew: true,
-        validationErrors: {}
+    const initialData = function() { 
+        return {
+            user: {
+                _id: '',
+                email: '',
+                first_name: '',
+                family_name: '',
+                password: '',
+                passwordConfirm: ''
+            },
+            beforeUser: null,
+            isNew: true,
+            validationErrors: {}
+        };
     };
 
     export default {
         data () {
-            return initialData
+            return initialData()
         },
         components: {
             inputField: Input
@@ -100,7 +103,7 @@
                     this.fetch(id);
                     // after fetch will be populated $store.auth.selectedUser
                 } else {
-                    this.$data.user = initialData.user;
+                    this.$data.user = initialData().user;
                 }
             },
             _assignUserToData(user) {
