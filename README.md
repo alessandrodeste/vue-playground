@@ -12,7 +12,7 @@
 
 ## Build Setup
 
-Install and start the [backend services](https://github.com/alessandrodeste/nodejs-playground)
+Install and start the backend services: [nodejs-playground](https://github.com/alessandrodeste/nodejs-playground)
 
 Install and start this application:
 
@@ -29,8 +29,7 @@ npm run build
 
 # TODO
 
-- go to login if unauthorized
 - loaders
-- refactoring input field with sub component
-- refresh item in list after update/create
+- smart refresh item in list after update/create
 - use vue-i18n
+- use element-ui for validation and inputs
