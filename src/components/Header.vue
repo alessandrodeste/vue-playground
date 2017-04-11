@@ -3,7 +3,7 @@
         
         <router-link :to="{ name: 'home' }" activeClass="active" class="navbar-brand">Vue Playground</router-link>
         
-        <ul class="nav navbar-nav" v-if="authenticated">
+        <ul class="nav navbar-nav" v-if="authenticated && user">
             <li class="nav-item">
                 <router-link :to="{ name: 'users' }" activeClass="active" class="nav-link">Users</router-link>
             </li>

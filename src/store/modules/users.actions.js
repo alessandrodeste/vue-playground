@@ -2,9 +2,8 @@ import Vue from 'vue';
 
 export default {
     fetchAll: ({ commit }, offset) => {
-        console.log('fetchAll', offset);
-         Vue.http.get('api/secured/users?offset=' + offset.toString(), 
-                    {headers: {'authorization': window.localStorage.getItem('token')}})
+         Vue.http.get('api/secured/users?offset=' + offset.toString()/*, 
+                    {headers: {'authorization': window.localStorage.getItem('token')}}*/)
             .then(response => response.json())
             .then(data => {
                 if (data) {
@@ -17,8 +16,8 @@ export default {
     },
     fetch: ({commit}, userId) => {
         
-        Vue.http.get('api/secured/users/' + userId, 
-                    {headers: {'authorization': window.localStorage.getItem('token')}})
+        Vue.http.get('api/secured/users/' + userId/*, 
+                    {headers: {'authorization': window.localStorage.getItem('token')}}*/)
             .then(response => response.json())
             .then(data => {
                 if (data) {
@@ -34,8 +33,8 @@ export default {
         const partialUser = params [1];
         
         Vue.http.put('api/secured/users/' + userId, 
-                    partialUser, 
-                    {headers: {'authorization': window.localStorage.getItem('token')}})
+                    partialUser/*, 
+                    {headers: {'authorization': window.localStorage.getItem('token')}}*/)
             .then(response => response.json())
             .then(data => {
                 if (data) {
@@ -50,8 +49,8 @@ export default {
     create: ({commit}, user) => {
         
         Vue.http.post('api/secured/users/', 
-                    user, 
-                    {headers: {'authorization': window.localStorage.getItem('token')}})
+                    user/*, 
+                    {headers: {'authorization': window.localStorage.getItem('token')}}*/)
             .then(response => response.json())
             .then(data => {
                 if (data) {
@@ -65,8 +64,8 @@ export default {
     },
     remove: ({commit}, id) => {
     
-        Vue.http.delete('api/secured/users/' + id, 
-                    {headers: {'authorization': window.localStorage.getItem('token')}})
+        Vue.http.delete('api/secured/users/' + id/*, 
+                    {headers: {'authorization': window.localStorage.getItem('token')}}*/)
             .then(response => response.json())
             .then(data => {
                 if (data) {

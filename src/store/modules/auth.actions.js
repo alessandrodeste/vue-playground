@@ -42,9 +42,7 @@ export default {
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    // Save the JWT token
-                    window.localStorage.setItem('token', token);
-                    commit('AUTH_SIGNIN', data.user);
+                    commit('AUTH_SIGNIN', [token, data.user]);
                 } else {
                     commit('AUTH_SIGNOUT', "Error on server response.");    
                 }
@@ -52,6 +50,42 @@ export default {
             .catch(response => {
                 commit('AUTH_SIGNOUT', response.statusText);
             });
+    },
+    
+    checkExpiredToken: ({ dispatch }, { response, request }) => {
+        
+        return new Promise(function(resolve, reject) {
+            
+            //If token is expired, refresh token, resubmit original request & resolve response for original request
+            if(response.status === 401 && response.data.error.code === 'GEN-TOKEN-EXPIRED') {
+                dispatch('refreshToken', request).then(function(response){
+                    resolve(response);
+                });
+            }
+            
+            // Otherwise just resolve the current response
+            resolve(response);
+        });
+    },
+    refreshToken: ({ dispatch }, request) => {
+        return new Promise(function(resolve, reject) {
+            
+            //Refresh token
+            Vue.http.post('/auth/refresh-token', 
+                    {headers: {'authorization': window.localStorage.getItem('refresh_token')}}).then(function (response) {
+                
+                //Store refreshed token
+                window.localStorage.setItem('token', response.data.token);
+                
+                //Resubmit original request and resolve the response
+                Vue.http(request).then(function (newResponse) {
+                    resolve(newResponse);
+                });
+                
+            }, function (newResponse) {
+                reject(newResponse);
+            });
+        });
     }
 
 }
