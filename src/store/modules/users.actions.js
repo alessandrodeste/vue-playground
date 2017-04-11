@@ -1,9 +1,9 @@
 import Vue from 'vue';
 
 export default {
-    fetchAll: ({ commit }) => {
-        
-         Vue.http.get('api/secured/users', 
+    fetchAll: ({ commit }, offset) => {
+        console.log('fetchAll', offset);
+         Vue.http.get('api/secured/users?offset=' + offset.toString(), 
                     {headers: {'authorization': window.localStorage.getItem('token')}})
             .then(response => response.json())
             .then(data => {

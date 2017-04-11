@@ -33,3 +33,4 @@ npm run build
 - smart refresh item in list after update/create
 - use vue-i18n
 - use element-ui for validation and inputs
+- select input type for roles

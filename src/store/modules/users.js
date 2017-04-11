@@ -3,6 +3,7 @@ import actions from './users.actions';
 
 const state = {
     users: [],
+    currentPage: 0,
     selectedUser: null
 };
 
@@ -12,6 +13,9 @@ const mutations = {
     },
     'USERS_FETCH' (state, user) {
         state.selectedUser = user;
+    },
+    'SET_PAGE' (state, page) {
+        state.currentPage = page;
     }
 };
 
@@ -21,6 +25,9 @@ const getters = {
     },
     selectedUser: state => {
         return state.selectedUser;
+    },
+    currentPage: state => {
+        return state.currentPage;
     }
     
 };

@@ -23,14 +23,20 @@
                 :placeholder="'Family Name'"
                 :error="this.validationErrors.family_name"
             ></input-field>
+            
+            <input-field :type="'text'" :name="'role'"
+                v-model="user.role"
+                :title="'Role'"
+                :error="this.validationErrors.role"
+            ></input-field>
                 
-            <input-field :type="'text'" :name="'password'"
+            <input-field :type="'password'" :name="'password'"
                 v-model.lazy="user.password"
                 :title="'Password'"
                 :error="this.validationErrors.password"
             ></input-field>
                 
-            <input-field :type="'text'" :name="'passwordConfirm'"
+            <input-field :type="'password'" :name="'passwordConfirm'"
                 v-model.lazy="user.passwordConfirm"
                 :title="'Confirm Password'"
                 :error="this.validationErrors.passwordConfirm"
@@ -55,6 +61,7 @@
                 email: '',
                 first_name: '',
                 family_name: '',
+                role: '',
                 password: '',
                 passwordConfirm: ''
             },
@@ -151,6 +158,11 @@
                 if (this.isNew && !this.user.password) {
                     isValid = false;
                     this.validationErrors.password = 'Please enter a password';
+                }
+                
+                if (!this.user.role || this.user.role >= this.authUser.role) {
+                    isValid = false;
+                    this.validationErrors.role = 'Role not valid';
                 }
                 
                 if (this.user.password && !this.user.passwordConfirm) {

@@ -25,7 +25,7 @@
             name: { type: String },
             type: { type: String, default: 'text' },
             disabled: { type: Boolean, default: false },
-            value: String,
+            value: [String, Boolean, Number],
             placeholder: String,
             error: String,
             required: { type: Boolean, default: false }
