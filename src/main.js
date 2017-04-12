@@ -1,34 +1,30 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 
 import App from './App.vue';
+import { routes } from './routes';
 import store from './store/store';
-
-// Init vue-router
-import { init as Router } from './routes';
-const router = Router(store);
 
 // Init vue-resource
 Vue.use(VueResource);
-//Vue.http.options.root = 'https://nodejs-playground-ade.herokuapp.com';
-Vue.http.options.root = 'https://nodejs-playground-alessandrodeste.c9users.io:8080';
+Vue.http.options.root = 'http://localhost:8080';
 
+// Init vue-router
+Vue.use(VueRouter);
+const router = new VueRouter({
+    mode: 'history',
+    routes
+});
 
-Vue.http.interceptors.push(function (request, next) {
-    
-    // Add JWT to all requests when token is setted
-    if (window.localStorage.getItem('token'))
-        request.headers.set('authorization', window.localStorage.getItem('token'));
-    
-    next(function (response) {
-        //Check for expired token response, if expired, refresh token and resubmit original request
-        store.dispatch('auth/checkExpiredToken', { response, request }).then(function(response) {
-            return response;
-        })
-    }.bind(this));
-    //next(function (response) {return response;});
-}.bind(this));
-
+// Handling authenticated routing path
+router.beforeEach((to, from, next) => {
+    if (to.meta.Auth && !store.state.auth.authenticated) {
+        next('/signin');
+    } else {
+        next();
+    }
+})
 
 // Check if was already logged in
 const token = window.localStorage.getItem('token');
