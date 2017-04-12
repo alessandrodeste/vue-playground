@@ -10,13 +10,16 @@ const router = Router(store);
 
 // Init vue-resource
 Vue.use(VueResource);
-Vue.http.options.root = 'https://nodejs-playground-ade.herokuapp.com';
+//Vue.http.options.root = 'https://nodejs-playground-ade.herokuapp.com';
+Vue.http.options.root = 'https://nodejs-playground-alessandrodeste.c9users.io:8080';
 
 
 Vue.http.interceptors.push(function (request, next) {
-    // Add JWT to all requests
-    request.headers.set('authorization', window.localStorage.getItem('token'));
-
+    
+    // Add JWT to all requests when token is setted
+    if (window.localStorage.getItem('token'))
+        request.headers.set('authorization', window.localStorage.getItem('token'));
+    
     next(function (response) {
         //Check for expired token response, if expired, refresh token and resubmit original request
         store.dispatch('auth/checkExpiredToken', { response, request }).then(function(response) {

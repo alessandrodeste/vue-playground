@@ -57,7 +57,11 @@ export default {
         return new Promise(function(resolve, reject) {
             
             //If token is expired, refresh token, resubmit original request & resolve response for original request
-            if(response.status === 401 && response.data.error.code === 'GEN-TOKEN-EXPIRED') {
+            if(response.status === 401 
+                && response.data.error 
+                && response.data.error.code === 'TOKEN_EXPIRED' 
+                && window.localStorage.getItem('refresh_token')) {
+                    
                 dispatch('refreshToken', request).then(function(response){
                     resolve(response);
                 });
@@ -71,8 +75,9 @@ export default {
         return new Promise(function(resolve, reject) {
             
             //Refresh token
-            Vue.http.post('/auth/refresh-token', 
-                    {headers: {'authorization': window.localStorage.getItem('refresh_token')}}).then(function (response) {
+            Vue.http.post('auth/token/refresh', 
+                    { token: window.localStorage.getItem('refresh_token') }
+                    ).then(function (response) {
                 
                 //Store refreshed token
                 window.localStorage.setItem('token', response.data.token);
