@@ -39,7 +39,7 @@ Vue.http.options.root = 'http://localhost:8080';
 # TODO
 
 - loaders
-- smart refresh item in list after update/create
+- refresh list after CRUD operations
 - use vue-i18n
 - use element-ui for validation and inputs
 - select input type for roles

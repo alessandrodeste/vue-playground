@@ -4,11 +4,12 @@ import Vue from 'vue';
 export default {
     
     signin: ({ commit, dispatch }, { email, password }) => {
+        
         Vue.http.post('auth/signin', { email, password })
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    dispatch('getLoggedUser', data.token);
+                    dispatch('getLoggedUser', { token: data.token, refresh_token: data.refreshToken });
                 } else {
                     commit('AUTH_SIGNOUT', "Error on server response.");    
                 }
@@ -19,11 +20,12 @@ export default {
     },
     
     signup: ({ commit, dispatch }, { email, password }) => {
+        
         Vue.http.post('auth/signup', { email, password })
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    dispatch('getLoggedUser', data.token);
+                    dispatch('getLoggedUser', { token: data.token, refresh_token: data.refreshToken });
                 } else {
                     commit('AUTH_SIGNOUT', "Error on server response.");    
                 }
@@ -37,12 +39,13 @@ export default {
         commit('AUTH_SIGNOUT');
     },
 
-    getLoggedUser: ({ commit }, token) => {
+    getLoggedUser: ({ commit }, { token, refresh_token }) => {
+        
         Vue.http.get('auth/loggedin', {headers: {'authorization': token}})
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    commit('AUTH_SIGNIN', [token, data.user]);
+                    commit('AUTH_SIGNIN', [token, refresh_token, data.user]);
                 } else {
                     commit('AUTH_SIGNOUT', "Error on server response.");    
                 }
@@ -61,7 +64,9 @@ export default {
                 && response.data.error 
                 && response.data.error.code === 'TOKEN_EXPIRED' 
                 && window.localStorage.getItem('refresh_token')) {
-                    
+                
+                window.localStorage.removeItem('token');
+                
                 dispatch('refreshToken', request).then(function(response){
                     resolve(response);
                 });

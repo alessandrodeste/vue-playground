@@ -11,11 +11,12 @@ const state = {
 const mutations = {
     'AUTH_SIGNIN' (state, params) {
         let token = params[0];
-        let user = params[1];
+        let refresh_token = params[1];
+        let user = params[2];
         
         // Save the JWT token
         window.localStorage.setItem('token', token);
-        window.localStorage.setItem('refresh_token', token);
+        window.localStorage.setItem('refresh_token', refresh_token);
                     
         state.user = user;
         state.authenticated = true;
