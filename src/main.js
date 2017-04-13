@@ -12,9 +12,7 @@ const router = Router(store);
  
 // Init vue-resource
 Vue.use(VueResource);
-//Vue.http.options.root = 'https://nodejs-playground-ade.herokuapp.com';
-Vue.http.options.root = 'https://nodejs-playground-alessandrodeste.c9users.io:8080';		
-//Vue.http.options.root = 'http://localhost:8080';		
+Vue.http.options.root = 'http://localhost:8080';		
 		
 Vue.http.interceptors.push(function (request, next) {		
     		
