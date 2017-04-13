@@ -13,7 +13,8 @@ const mutations = {
         let token = params[0];
         let refresh_token = params[1];
         let user = params[2];
-        
+        console.log("AUTH_SIGNIN: set token", token);
+        console.log("AUTH_SIGNIN: set refresh", refresh_token);
         // Save the JWT token
         window.localStorage.setItem('token', token);
         window.localStorage.setItem('refresh_token', refresh_token);

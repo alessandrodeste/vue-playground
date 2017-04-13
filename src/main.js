@@ -20,20 +20,17 @@ Vue.http.interceptors.push(function (request, next) {
     if (window.localStorage.getItem('token'))		
         request.headers.set('authorization', window.localStorage.getItem('token'));		
     		
+    //Check for expired token response, if expired, refresh token and resubmit original request		
     next(function (response) {		
-        //Check for expired token response, if expired, refresh token and resubmit original request		
-        store.dispatch('auth/checkExpiredToken', { response, request }).then(function(response) {		
+        return store.dispatch('auth/checkExpiredToken', { response, request }).then(function(response) {
             return response;		
         })		
-    }.bind(this));		
-    //next(function (response) {return response;});		
+    }.bind(this));
+    
 }.bind(this));
 
-// Check if was already logged in
-const token = window.localStorage.getItem('token');
-if (token) {
-    store.dispatch('auth/getLoggedUser', token);
-} 
+// Try to get the previous logged user
+store.dispatch('auth/getLoggedUser');
 
 // Entry point Vue
 new Vue({

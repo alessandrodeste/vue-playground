@@ -39,20 +39,25 @@ export default {
         commit('AUTH_SIGNOUT');
     },
 
-    getLoggedUser: ({ commit }, { token, refresh_token }) => {
+    getLoggedUser: ({ commit }, params) => {
         
-        Vue.http.get('auth/loggedin', {headers: {'authorization': token}})
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    commit('AUTH_SIGNIN', [token, refresh_token, data.user]);
-                } else {
-                    commit('AUTH_SIGNOUT', "Error on server response.");    
-                }
-            })
-            .catch(response => {
-                commit('AUTH_SIGNOUT', response.statusText);
-            });
+        const token = params ? params.token : window.localStorage.getItem('token');
+        const refresh_token = params ? params.refresh_token : window.localStorage.getItem('refresh_token');
+        
+        if (refresh_token) {
+            Vue.http.get('auth/loggedin', {headers: {'authorization': token}})
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        commit('AUTH_SIGNIN', [token, refresh_token, data.user]);
+                    } else {
+                        commit('AUTH_SIGNOUT', "Error on server response.");    
+                    }
+                })
+                .catch(response => {
+                    commit('AUTH_SIGNOUT', response.statusText);
+                });
+        }
     },
     
     checkExpiredToken: ({ dispatch }, { response, request }) => {
@@ -70,19 +75,19 @@ export default {
                 dispatch('refreshToken', request).then(function(response){
                     resolve(response);
                 });
+            } else {
+                // Otherwise just resolve the current response
+                resolve(response);
             }
-            
-            // Otherwise just resolve the current response
-            resolve(response);
         });
     },
     refreshToken: ({ dispatch }, request) => {
         return new Promise(function(resolve, reject) {
             
             //Refresh token
-            Vue.http.post('auth/token/refresh', 
-                    { token: window.localStorage.getItem('refresh_token') }
-                    ).then(function (response) {
+            Vue.http.post('auth/token/refresh', { 
+                token: window.localStorage.getItem('refresh_token')
+            }).then(function (response) {
                 
                 //Store refreshed token
                 window.localStorage.setItem('token', response.data.token);

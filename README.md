@@ -43,3 +43,4 @@ Vue.http.options.root = 'http://localhost:8080';
 - use vue-i18n
 - use element-ui for validation and inputs
 - select input type for roles
+- animations
