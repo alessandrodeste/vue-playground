@@ -11,6 +11,7 @@
 - CRUD operation on users list
 - Basic authentication with JWT
 - Basic form validation
+- Google client-side oauth2 authentication is incomplete but implemented
 
 ## Build Setup
 
