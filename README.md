@@ -26,6 +26,9 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
+# or if you run it on cloud9.io
+npm run devc9
+
 # build for production with minification
 npm run build
 ```

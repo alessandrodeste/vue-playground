@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "devc9": "cross-env NODE_ENV=development webpack-dev-server --open --hot --host $IP --port $PORT --public $C9_HOSTNAME",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
