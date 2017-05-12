@@ -45,3 +45,7 @@ Vue.http.options.root = 'http://localhost:8080';
 - use element-ui for validation and inputs
 - select input type for roles
 - animations
+ 
+# Thank you time
+- [vue-google-auth](https://github.com/simmatrix/vue-google-auth/blob/master/sample.html)
+- [vue store with strict mode + two way databinding with mutation](https://ypereirareis.github.io/blog/2017/04/25/vuejs-two-way-data-binding-state-management-vuex-strict-mode/)
